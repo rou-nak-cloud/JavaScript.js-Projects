@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="main">
+      <section>
+        <div class="left">
+          <div class="top">
+            <label class="label" for="image-input">
+              Choose image
+              <input type="file" accept="image/*" id="image-input" hidden />
+            </label>
+            <button type="button" class="btn" id="reset-btn">Reset</button>
+            <button type="button" class="btn" id="download-btn">
+              Download
+            </button>
+          </div>
+          <div class="bottom">
+            <div class="placeholder">
+              <p>No file chosen</p>
+            </div>
+            <canvas class="imageCanvas"></canvas>
+          </div>
+        </div>
+        <div class="right">
+          <h1>Filters</h1>
+          <div class="filters">
+            <!-- <div class="filter">
+              <label class="labelp" for="brightness">Brightness</label>
+              <input
+                type="range"
+                value="100"
+                min="0"
+                max="200"
+                name="brightness"
+                id="brightness"
+              />
+            </div> -->
+          </div>
+          <h1>Presets</h1>
+          <div class="presets"></div>
+        </div>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
