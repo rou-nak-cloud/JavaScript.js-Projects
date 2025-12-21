@@ -1,0 +1,136 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+:root {
+  --bg-primary: #0c0c0c;
+  --bg-secondary: #051000ad;
+  --text-primary-color: #f0f0f0;
+  --border-primary-color: #444444;
+  --board-checker-color: #74747445;
+
+  --bg-fill-color: #e799ea;
+  --bg-food-color: #cb3973d5;
+
+  /* Spacing variables */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 48px;
+
+  --border-radius-xs: 4px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 16px;
+  --border-radius-lg: 24px;
+
+  --font-size-sm: 14px;
+  --font-size-md: 18px;
+  --font-size-lg: 22px;
+}
+
+html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary-color);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.btn {
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px var(--bg-food-color);
+}
+.btn:active {
+  transform: scale(0.96);
+}
+
+main,
+section {
+  height: 100%;
+  width: 100%;
+}
+section {
+  padding: var(--space-2xl);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* background-color: rgb(7, 7, 80); */
+}
+section .infos {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.info {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border-primary-color);
+  border-radius: var(--border-radius-sm);
+}
+
+section .board {
+  border: 1px solid var(--border-primary-color);
+  border-radius: var(--border-radius-xs);
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(40px, 1fr));
+}
+.block {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--board-checker-color);
+  background: #22222220;
+}
+/* snake color & food color */
+.fill {
+  background-color: var(--bg-fill-color);
+  border-radius: var(--border-radius-xs);
+}
+.food {
+  background-color: var(--bg-food-color);
+  border-radius: var(--border-radius-xs);
+}
+
+/* modal */
+.modal {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  background-color: var(--bg-secondary);
+  /* backdrop-filter: blur(2px); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal h3 span {
+  padding: var(--space-xs);
+  color: var(--bg-food-color);
+  text-transform: uppercase;
+  font-size: var(--font-size-lg);
+}
+.modal .start-game,
+.game-over {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  gap: var(--space-lg);
+}
+.modal .game-over {
+  display: none;
+}
