@@ -10,7 +10,15 @@ const modal = document.querySelector('.modal')
 let tasksData = {}; 
 let draggedIem = null;
 
-function addTask(title,desc,column){
+function getFormattedDate() {
+  return new Date().toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function addTask(title,desc,column,createdAt = getFormattedDate()){
     const div = document.createElement("div");
         div.classList.add("task");
         div.setAttribute("draggable", "true");
@@ -18,6 +26,7 @@ function addTask(title,desc,column){
         div.innerHTML = `
             <h2>${title}</h2>
             <p>${desc}</p>
+            <small class="task-date">📅 ${createdAt} created.</small>
             <button type="button" class="delete-btn">Delete</button>
         `;    
         column.appendChild(div)
@@ -43,7 +52,8 @@ function updateCountTask(){
             tasksData[col.id] = [...tasks].map(t => {
                return{
                 title: t.querySelector('h2').innerText,
-                description: t.querySelector('p').innerText
+                description: t.querySelector('p').innerText,
+                date: t.querySelector('.task-date').innerText.replace("📅 ", "")
                }
             });
             localStorage.setItem("AllTasks", JSON.stringify(tasksData))
@@ -57,7 +67,7 @@ if(localStorage.getItem("AllTasks")){
     for(const col in data){
         const column = document.querySelector(`#${col}`)
         data[col].forEach(task => {
-            addTask(task.title, task.description, column);
+            addTask(task.title, task.description, column, task.date);
         })
         // count
         const count = column.querySelector('.right')

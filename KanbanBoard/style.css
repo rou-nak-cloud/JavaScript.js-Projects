@@ -294,3 +294,10 @@ textarea {
   font-size: 0.9rem;
   margin-top: 1rem;
 }
+
+.task-date {
+  font-size: 0.9rem;
+  color: #999;
+  display: block;
+  margin: 4px 0 6px;
+}
