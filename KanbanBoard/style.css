@@ -159,7 +159,7 @@ section .taskColumn {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-md);
+  gap: var(--gap-sm);
   transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
   box-shadow: var(--boxShadow);
   overflow-y: auto;
@@ -302,6 +302,7 @@ textarea {
   scale: 0.95;
 }
 
+/* Utils */
 .empty-text {
   text-align: center;
   display: none;
@@ -321,4 +322,29 @@ textarea {
   font-size: 0.75rem;
   color: #cc4440;
   display: block;
+}
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--gap-md);
+  /* margin-top: 0.8rem; */
+}
+.task.completed h2 {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.done-btn {
+  /* background-color: #2e7d32; */
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.done-btn:hover {
+  background-color: #1b5e20;
+}
+.task.completed .done-btn {
+  background-color: #2e7d32;
+  cursor: default;
 }

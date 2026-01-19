@@ -29,13 +29,26 @@ function addTask(title,desc,column,createdAt = getFormattedDate(),dueDate=""){
             <p>${desc}</p>
             <small class="task-date">📅 ${createdAt} created.</small>
              <small class="task-due">⏰ Due: ${dueDate || "No due date"}</small>
-            <button type="button" class="delete-btn">Delete</button>
+             <div class="task-actions">
+                <button type="button" class="done-btn" style="display:none;">Done?</button>
+                <button type="button" class="delete-btn">Delete</button>
+            </div>
         `;    
         column.appendChild(div)
         div.addEventListener('drag', (e)=>{
             draggedIem = div;
         })
 
+        // Done button logic
+        const doneBtn = div.querySelector(".done-btn");
+        doneBtn.addEventListener("click", () => {
+        div.classList.toggle("completed");
+        doneBtn.innerText = div.classList.contains("completed")
+            ? "Completed"
+            : "Done?";
+        });
+
+        // Delete Logic
         const deleteBtn = div.querySelector('.delete-btn');
         deleteBtn.addEventListener('click', () => {
             div.remove();
@@ -55,9 +68,11 @@ function updateCountTask(){
                return{
                 title: t.querySelector('h2').innerText,
                 description: t.querySelector('p').innerText,
-                date: t.querySelector('.task-date').innerText.replace("📅 ", ""),
+                date: t.querySelector('.task-date').innerText.replace("📅 ", "")
+                .replace(" created.", "")
+                .trim(),
                 dueDate: t.querySelector('.task-due')
-                ? t.querySelector('.task-due').innerText.replace("⏰ Due: ", "")
+                ? t.querySelector('.task-due').innerText.replace("⏰ Due: ", "").trim()
                 : ""
                }
             });
@@ -117,6 +132,17 @@ function addDragLeaveEvent(column){
         
         column.appendChild(draggedIem);
         this.classList.remove("hover-over");
+
+        // show/hide Done button
+        const doneBtn = draggedIem.querySelector(".done-btn");
+
+        if (column.id === "done") {
+            doneBtn.style.display = "block";
+        } else {
+            doneBtn.style.display = "none";
+            draggedIem.classList.remove("completed");
+            doneBtn.innerText = "Done?";
+        }
 
      // to check whether task is present or not cause we dropped new task here 
        updateEmptyState(todo);
