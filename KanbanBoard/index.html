@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <link rel="shortcut icon" href="./assets/kanban.png" type="image/x-icon" />
+    <!--A Kanban board is a visual workflow management tool that uses columns (stages) and cards (tasks) to track work from start to finish, -->
+  </head>
+  <body>
+    <main>
+      <nav>
+        <div class="imgText">
+          <div class="left"><h2>Kanban.</h2></div>
+          <div class="img">
+            <img src="./assets/kanban.png" alt="kanban logo" srcset="" />
+          </div>
+        </div>
+        <div class="mid"><h3>Track Work from Start to Finish</h3></div>
+        <div class="right">
+          <button type="button" id="toggle-modal">New Task</button>
+        </div>
+      </nav>
+      <section class="board">
+        <div id="todo" class="taskColumn">
+          <div class="heading">
+            <div class="left">To Do</div>
+            <div class="right">Count</div>
+          </div>
+          <p class="empty-text">No tasks</p>
+        </div>
+        <div id="progress" class="taskColumn">
+          <div class="heading">
+            <div class="left">In Progress</div>
+            <div class="right">Count</div>
+          </div>
+          <p class="empty-text">No tasks in progress</p>
+        </div>
+        <div id="done" class="taskColumn">
+          <div class="heading">
+            <div class="left">Done</div>
+            <div class="right">Count</div>
+          </div>
+          <p class="empty-text">No tasks done</p>
+        </div>
+      </section>
+    </main>
+    <!-- modal -->
+    <div class="modal add-new-task">
+      <div class="bg"></div>
+      <div class="center">
+        <input type="text" id="task-title" placeholder="Task Title" />
+        <textarea
+          id="task-description"
+          placeholder="Task Description"
+        ></textarea>
+        <button type="button" id="add-new-task" class="add-task-btn">
+          Add Task
+        </button>
+        <div class="last">
+          <button type="button" id="no-task-btn">Chill.. No Task Now</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
