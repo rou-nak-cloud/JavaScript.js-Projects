@@ -18,15 +18,17 @@ function getFormattedDate() {
   });
 }
 
-function addTask(title,desc,column,createdAt = getFormattedDate()){
+function addTask(title,desc,column,createdAt = getFormattedDate(),dueDate=""){
     const div = document.createElement("div");
         div.classList.add("task");
         div.setAttribute("draggable", "true");
+        console.log("Rendering due date:", dueDate);
 
         div.innerHTML = `
             <h2>${title}</h2>
             <p>${desc}</p>
             <small class="task-date">📅 ${createdAt} created.</small>
+             <small class="task-due">⏰ Due: ${dueDate || "No due date"}</small>
             <button type="button" class="delete-btn">Delete</button>
         `;    
         column.appendChild(div)
@@ -53,7 +55,10 @@ function updateCountTask(){
                return{
                 title: t.querySelector('h2').innerText,
                 description: t.querySelector('p').innerText,
-                date: t.querySelector('.task-date').innerText.replace("📅 ", "")
+                date: t.querySelector('.task-date').innerText.replace("📅 ", ""),
+                dueDate: t.querySelector('.task-due')
+                ? t.querySelector('.task-due').innerText.replace("⏰ Due: ", "")
+                : ""
                }
             });
             localStorage.setItem("AllTasks", JSON.stringify(tasksData))
@@ -67,7 +72,7 @@ if(localStorage.getItem("AllTasks")){
     for(const col in data){
         const column = document.querySelector(`#${col}`)
         data[col].forEach(task => {
-            addTask(task.title, task.description, column, task.date);
+            addTask(task.title, task.description, column, task.date, task.dueDate);
         })
         // count
         const count = column.querySelector('.right')
@@ -148,10 +153,11 @@ const addTaskBtn = document.querySelector('#add-new-task')
 addTaskBtn.addEventListener('click', ()=> {
     const taskTitle = document.querySelector('#task-title').value.trim()
     const taskDescription = document.querySelector('#task-description').value.trim()
+    const dueDate = document.querySelector("#task-due-date").value;
     
      if (!taskTitle || !taskDescription) return;
 
-     addTask(taskTitle,taskDescription,todo)
+     addTask(taskTitle,taskDescription,todo,undefined,dueDate)
      modal.classList.remove('active')
     updateEmptyState(todo);
     // to count tasks for each column and to store the task data also for every col id
@@ -161,4 +167,5 @@ addTaskBtn.addEventListener('click', ()=> {
     // Clear inputs
     document.querySelector("#task-title").value = "";
     document.querySelector("#task-description").value = "";
+    document.querySelector("#task-due-date").value = "";
 })
