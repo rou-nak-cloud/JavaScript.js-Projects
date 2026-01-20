@@ -7,8 +7,20 @@ const toggleModal = document.querySelector('#toggle-modal')
 const noTaskBtn = document.querySelector('#no-task-btn') 
 const modal = document.querySelector('.modal')
 
+// Edit Modal Elements
+const editModal = document.getElementById("editModal");
+const editTitleInput = document.getElementById("editTitleInput");
+const editDescInput = document.getElementById("editDescInput");
+const editDateInput = document.getElementById("editDateInput");
+const saveEditBtn = document.getElementById("saveEditBtn");
+const cancelEditBtn = document.getElementById("cancelEditBtn");
+const editModalBg = editModal.querySelector(".bg");
+
+
+
 let tasksData = {}; 
 let draggedIem = null;
+let currentEditTask = null;
 
 function getFormattedDate() {
   return new Date().toLocaleDateString("en-IN", {
@@ -30,6 +42,7 @@ function addTask(title,desc,column,createdAt = getFormattedDate(),dueDate=""){
             <small class="task-date">📅 ${createdAt} created.</small>
              <small class="task-due">⏰ Due: ${dueDate || "No due date"}</small>
              <div class="task-actions">
+                <button type="button" class="edit-btn">Edit</button>
                 <button type="button" class="done-btn" style="display:none;">Done?</button>
                 <button type="button" class="delete-btn">Delete</button>
             </div>
@@ -56,8 +69,60 @@ function addTask(title,desc,column,createdAt = getFormattedDate(),dueDate=""){
             updateCountTask();
             updateEmptyState(column); // Update empty state for the column where the task was deleted
         });
+
+        // Edit Logic (Modal-based)
+        const editBtn = div.querySelector(".edit-btn");
+
+        editBtn.addEventListener("click", () => {
+        currentEditTask = div; // which task I am editing right now.
+
+        editTitleInput.value = div.querySelector("h2").innerText;
+        editDescInput.value = div.querySelector("p").innerText;
+
+        const dueText = div.querySelector(".due-date");
+        editDateInput.value = dueText?.dataset.date || "";
+
+        editModal.classList.add("active");
+        });
+
     return div;
 }
+    // Save edited task
+    saveEditBtn.addEventListener("click", () => {
+    if (!currentEditTask) return;
+
+      const newTitle = editTitleInput.value.trim();
+        const newDesc = editDescInput.value.trim();
+        const newDate = editDateInput.value;
+
+        if (newTitle === "") return alert("Title cannot be empty");
+
+        currentEditTask.querySelector("h2").innerText = newTitle;
+        currentEditTask.querySelector("p").innerText = newDesc;
+
+        const dueEl = currentEditTask.querySelector(".due-date");
+        if (dueEl) {
+            dueEl.innerText = newDate
+            ? `Due: ${newDate}`
+            : "Due: No due date";
+
+            dueEl.dataset.date = newDate;
+        }
+
+    updateCountTask(); // persist to localStorage
+
+    editModal.classList.remove("active");
+    currentEditTask = null;
+    });
+    // Cancel edit
+    cancelEditBtn.addEventListener("click", () => {
+    editModal.classList.remove("active");
+    currentEditTask = null;
+    });
+    editModalBg.addEventListener("click", () => {
+    editModal.classList.remove("active");
+    });
+
 function updateCountTask(){
      const columnsContent = [todo,progress,done]    
         columnsContent.forEach(col => {
@@ -69,7 +134,7 @@ function updateCountTask(){
                return{
                 title: t.querySelector('h2').innerText,
                 description: t.querySelector('p').innerText,
-                date: t.querySelector('.task-date').innerText.replace("📅 ", "")
+                createdAt: t.querySelector('.task-date').innerText.replace("📅 ", "")
                 .replace(" created.", "")
                 .trim(),
                 dueDate: t.querySelector('.task-due')

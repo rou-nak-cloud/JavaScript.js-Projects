@@ -351,3 +351,20 @@ textarea {
   background-color: #2e7d32;
   cursor: default;
 }
+
+/* Edit Modal specific */
+.edit-modal .center button {
+  background-color: #4caf50;
+}
+
+.edit-modal .center button:hover {
+  background-color: #43a047;
+}
+
+.edit-modal .last button {
+  background-color: var(--noTaskButton) !important;
+}
+
+.edit-modal .last button:hover {
+  background-color: var(--deleteButton) !important;
+}
