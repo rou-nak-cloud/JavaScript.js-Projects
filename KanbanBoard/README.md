@@ -13,7 +13,7 @@ https://kanbanboardv1.vercel.app/
 
 ---
 
-## 🚀 Features
+## 🚀 Features for (v1)
 
 - ✅ Add new tasks with title and description
 - 🧲 Drag & drop tasks between columns
@@ -29,11 +29,59 @@ https://kanbanboardv1.vercel.app/
 
 ### Kanban Board – Overview
 
-![Kanban Board Screenshot](./assets/homeBoard.png)
+## 📷 Project Preview
 
-### Add Task Modal
+| Kanban Board                            | Add Task Modal                          | Done Task State                             |
+| --------------------------------------- | --------------------------------------- | ------------------------------------------- |
+| ![Kanban Board](./assets/homeBoard.png) | ![Add Task Modal](./assets/addTask.png) | ![Done Task](./assets/doneTaskBoard%20.png) |
+| Main Kanban board with all columns      | Modal for creating a new task           | Completed task with line-through state      |
 
-![Add Task Modal](./assets/doneBoard.png)
+### 🔹 Version 2 (v2) — Persistent & Interactive Board
+
+**Goal:** Improve usability, persistence, and task lifecycle handling.
+
+#### New & Enhanced Features
+
+##### ✅ Advanced Task Data
+
+- Tasks include:
+  - **Created date**
+  - **Optional due date**
+- Clean date formatting and rendering
+
+##### 🖱️ Improved Drag & Drop
+
+- Smooth task movement between columns
+- Automatic task count updates
+- Column empty-state handling
+
+##### ✔️ Completion Workflow
+
+- When a task is moved to the **Done** column:
+  - A **“Done?”** button appears
+  - Clicking it:
+    - Marks the task as completed
+    - Applies **line-through** styling to the title
+    - Button text changes to **“Completed”**
+- Completion state is saved and restored using `localStorage`
+
+##### 💾 Persistent State (localStorage)
+
+- All tasks are saved with:
+  - Title & description
+  - Created date & due date
+  - Column position
+  - Completion status
+- Board restores correctly after page reload
+
+##### 🎨 UI & UX Improvements
+
+- Hidden scrollbars for a clean dashboard look
+- Visual distinction for completed tasks
+- Flex-based task action buttons
+- Modern dark-themed interface
+
+---
 
 ## 📁 Columns
 
@@ -109,6 +157,18 @@ No libraries or frameworks used.
 - ✏️ Edit task functionality
 - 🏷️ Task labels & priorities
 - 📱 Mobile drag support (Responsiveness)
+
+---
+
+## 📌 Why This Project Matters
+
+This project demonstrates:
+
+- Strong understanding of JavaScript fundamentals
+- Ability to manage UI state without frameworks
+- Clean DOM-based architecture
+- Incremental feature development using versioning
+- Practical problem-solving for real-world UI behavior
 
 ---
 
