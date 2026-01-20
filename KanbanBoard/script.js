@@ -46,6 +46,7 @@ function addTask(title,desc,column,createdAt = getFormattedDate(),dueDate=""){
         doneBtn.innerText = div.classList.contains("completed")
             ? "Completed"
             : "Done?";
+            updateCountTask(); // save state
         });
 
         // Delete Logic
@@ -73,7 +74,8 @@ function updateCountTask(){
                 .trim(),
                 dueDate: t.querySelector('.task-due')
                 ? t.querySelector('.task-due').innerText.replace("⏰ Due: ", "").trim()
-                : ""
+                : "",
+                completed: t.classList.contains("completed")
                }
             });
             localStorage.setItem("AllTasks", JSON.stringify(tasksData))
@@ -87,7 +89,22 @@ if(localStorage.getItem("AllTasks")){
     for(const col in data){
         const column = document.querySelector(`#${col}`)
         data[col].forEach(task => {
-            addTask(task.title, task.description, column, task.date, task.dueDate);
+            const taskDiv = addTask(
+            task.title,
+            task.description,
+            column,
+            task.createdAt,
+            task.dueDate
+            );
+
+        // restore completed state
+        if (task.completed) {
+            taskDiv.classList.add("completed");
+
+            const doneBtn = taskDiv.querySelector(".done-btn");
+            doneBtn.style.display = "block";
+            doneBtn.innerText = "Completed";
+        }
         })
         // count
         const count = column.querySelector('.right')
