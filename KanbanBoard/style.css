@@ -37,10 +37,10 @@ body {
   --borderRadius-lg: 10px;
 
   /* font-size */
-  --fontSize-sm: 0.8rem;
-  --fontSize-md: 1rem;
-  --fontSize-lg: 1.2rem;
-  --fontSize-xl: 1.5rem;
+  --fontSize-sm: 0.4rem;
+  --fontSize-md: 0.7rem;
+  --fontSize-lg: 1rem;
+  --fontSize-xl: 1.2rem;
   --fontSize-xxl: 2rem;
 
   /* gap */
@@ -301,6 +301,17 @@ textarea {
   background-color: var(--deleteButton) !important;
   scale: 0.95;
 }
+.edit-btn {
+  background-color: rgb(117, 35, 193) !important;
+}
+.edit-btn:hover {
+  scale: 0.95;
+  background-color: rgb(90, 25, 156) !important;
+}
+.delete-btn:hover {
+  scale: 0.95;
+  background-color: var(--deleteButton) !important;
+}
 
 /* Utils */
 .empty-text {
@@ -350,6 +361,12 @@ textarea {
 .task.completed .done-btn {
   background-color: #2e7d32;
   cursor: default;
+}
+.date-label {
+  font-size: 0.9rem;
+  font-family: cursive;
+  margin: auto;
+  color: var(--inputText);
 }
 
 /* Edit Modal specific */
