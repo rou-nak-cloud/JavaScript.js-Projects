@@ -31,10 +31,15 @@ https://kanbanboardv1.vercel.app/
 
 ## 📷 Project Preview
 
-| Kanban Board                            | Add Task Modal                          | Done Task State                             |
-| --------------------------------------- | --------------------------------------- | ------------------------------------------- |
-| ![Kanban Board](./assets/homeBoard.png) | ![Add Task Modal](./assets/addTask.png) | ![Done Task](./assets/doneTaskBoard%20.png) |
-| Main Kanban board with all columns      | Modal for creating a new task           | Completed task with line-through state      |
+| Kanban Board                            | Add Task Modal                          |
+| --------------------------------------- | --------------------------------------- |
+| ![Kanban Board](./assets/homeBoard.png) | ![Add Task Modal](./assets/addTask.png) |
+| Main Kanban board with all columns      | Modal for creating a new task           |
+
+| Done Task State                             | Another Feature                           |
+| ------------------------------------------- | ----------------------------------------- |
+| ![Done Task](./assets/doneTaskBoard%20.png) | ![Feature 4](./assets/kanbanBoardAll.png) |
+| Completed task with line-through state      | v3 ready Kanban board                     |
 
 ### 🔹 Version 2 (v2) — Persistent & Interactive Board
 
@@ -80,6 +85,55 @@ https://kanbanboardv1.vercel.app/
 - Visual distinction for completed tasks
 - Flex-based task action buttons
 - Modern dark-themed interface
+
+---
+
+## 🚀 Kanban Board – Version 3 (v3)
+
+Version 3 focuses on **editing, persistence, and UX improvements**, making the board more practical for real-world usage.
+
+---
+
+### ✨ What’s New in v3
+
+#### ✏️ Edit Task (Modal Based)
+
+- Added an **Edit button** on each task
+- Opens a **custom modal (not browser prompt)**
+- Allows editing:
+  - Task title
+  - Task description
+  - Due date
+- Modal is pre-filled with existing task data
+- Clean UI consistent with the Add Task modal
+
+---
+
+#### 💾 Persistent Edits (LocalStorage)
+
+- Any edit is **immediately saved to LocalStorage**
+- On page reload:
+  - Edited title & description remain intact
+  - Due date updates persist correctly
+  - Task status remains unchanged
+
+---
+
+#### 📅 Correct Created Date Handling
+
+- Fixed bug where task `created date` changed after reload
+- Now:
+  - Created date is stored once at task creation
+  - Reloading the app shows the **original creation date**
+
+---
+
+#### 🧠 Improved UX Details
+
+- No browser `prompt()` usage (fully custom modals)
+- Better date handling (`No due date` fallback)
+- Clean and minimal modal UI
+- Smooth user experience for editing and managing tasks
 
 ---
 
@@ -146,17 +200,20 @@ No libraries or frameworks used.
 
 ## ⚠️ Known Limitations (v1)
 
-- No edit task feature
 - No mobile drag support
 - No backend (localStorage only)
 
 ---
 
-## 🔮 Future Improvements (v2+)
+### 📌 Current Features Summary (v3)
 
-- ✏️ Edit task functionality
-- 🏷️ Task labels & priorities
-- 📱 Mobile drag support (Responsiveness)
+- Create tasks with title, description & due date
+- Drag & drop between columns
+- Mark tasks as completed
+- Edit tasks using modal
+- Delete tasks
+- Task count per column
+- Full LocalStorage persistence
 
 ---
 
@@ -179,6 +236,8 @@ This project demonstrates:
 Feel free to fork, improve, or suggest enhancements 🚀
 
 ---
+
+> 💡 This project is built to strengthen core JavaScript concepts like DOM manipulation, state management, and UI logic without any frameworks.
 
 ## ⭐ If you like this project
 

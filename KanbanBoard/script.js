@@ -34,7 +34,7 @@ function addTask(title,desc,column,createdAt = getFormattedDate(),dueDate=""){
     const div = document.createElement("div");
         div.classList.add("task");
         div.setAttribute("draggable", "true");
-        console.log("Rendering due date:", dueDate);
+        // console.log("Rendering due date:", dueDate);
 
         div.innerHTML = `
             <h2>${title}</h2>
