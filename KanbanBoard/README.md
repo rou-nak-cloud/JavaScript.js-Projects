@@ -137,6 +137,22 @@ Version 3 focuses on **editing, persistence, and UX improvements**, making the b
 
 ---
 
+# 🗂️ Kanban Board (v3.1)
+
+## ✨ Features (v3.1)
+
+- ➕ Add tasks with title, description, created date & due date
+- ✏️ Edit tasks using a modal (no prompts)
+- 🧲 Drag & drop between **To Do**, **In Progress**, and **Done**
+- ✅ Mark tasks as completed with visual line-through
+- 📅 Persist **created date**, **due date**, and **completed state**
+- 🔃 Sort tasks by **created date** (newest first)
+- 💾 Full `localStorage` persistence
+- 📊 Live task count per column
+- 🧹 Empty-state handling for columns
+
+---
+
 ## 📁 Columns
 
 - **Todo**
