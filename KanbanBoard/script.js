@@ -148,7 +148,7 @@ function addTask(title,desc,column,createdAt = getCreatedDate(),dueDate="", comp
         currentEditTask.querySelector("h2").innerText = newTitle;
         currentEditTask.querySelector("p").innerText = newDesc;
 
-        const dueEl = currentEditTask.querySelector(".due-date");
+        const dueEl = currentEditTask.querySelector(".task-due");
         if (dueEl) {
             dueEl.innerText = newDate
             ? `Due: ${newDate}`
