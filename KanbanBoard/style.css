@@ -99,15 +99,19 @@ nav .img img {
 }
 nav button {
   background-color: var(--bgButtonColor);
-  color: var(--primary-text-color);
+  color: rgb(49, 0, 99);
   border: none;
   outline: none;
   padding: var(--padding-sm) var(--padding-sm);
   cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
   border-radius: var(--borderRadius-md);
-  opacity: 0.9;
+  /* opacity: 0.9; */
   transition: var(--transition);
   font-family: cursive;
+  font-weight: 600;
+  font-size: var(--fontSize-lg);
 }
 nav button:hover {
   scale: 0.98;
@@ -384,4 +388,19 @@ textarea {
 
 .edit-modal .last button:hover {
   background-color: var(--deleteButton) !important;
+}
+
+/* task overdue */
+.task.overdue {
+  border-left: 6px solid #e74c3c;
+  border-right: 2px solid #e74c3c;
+  background-color: rgba(231, 76, 60, 0.08);
+}
+
+.task.overdue .task-due {
+  color: #e74c3c;
+  font-weight: 700;
+  font-family:
+    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+    Arial, sans-serif;
 }

@@ -45,6 +45,18 @@ function sortTasksByCreatedDate(column, newestFirst = true) {
 
   tasks.forEach(task => column.appendChild(task));
 }
+function isOverdue(dueDate) {
+  if (!dueDate || dueDate === "No due date") return false;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const due = new Date(dueDate);
+  due.setHours(0, 0, 0, 0);
+
+  return due < today;
+}
+
 
 function addTask(title,desc,column,createdAt = getCreatedDate(),dueDate="", completed=false){
     const div = document.createElement("div");
@@ -69,15 +81,33 @@ function addTask(title,desc,column,createdAt = getCreatedDate(),dueDate="", comp
         div.addEventListener('drag', (e)=>{
             draggedIem = div;
         })
+        // task overdue check
+        if (isOverdue(dueDate) && !div.classList.contains("completed")) {
+        div.classList.add("overdue");
+        }
 
         // Done button logic
         const doneBtn = div.querySelector(".done-btn");
         doneBtn.addEventListener("click", () => {
-        div.classList.toggle("completed");
-        doneBtn.innerText = div.classList.contains("completed")
-            ? "Completed"
-            : "Done?";
-            updateCountTask(); // save state
+        const isCompleted = div.classList.toggle("completed");
+
+        doneBtn.innerText = isCompleted ? "Completed" : "Done?";
+
+        // remove overdue if completed
+        if (isCompleted) {
+            div.classList.remove("overdue");
+        } else {
+            // re-check overdue if un-completed
+            const dueDateText = div.querySelector(".task-due")
+            ?.innerText.replace("⏰ Due: ", "")
+            .trim();
+
+            if (isOverdue(dueDateText)) {
+            div.classList.add("overdue");
+            }
+        }
+
+        updateCountTask(); // save state
         });
 
         // Delete Logic
@@ -185,10 +215,15 @@ if(localStorage.getItem("AllTasks")){
         // restore completed state
         if (task.completed) {
             taskDiv.classList.add("completed");
+            taskDiv.classList.remove("overdue"); 
 
             const doneBtn = taskDiv.querySelector(".done-btn");
             doneBtn.style.display = "block";
             doneBtn.innerText = "Completed";
+        }
+        //  to restore from the local storage and show
+        if (isOverdue(task.dueDate) && !task.completed) {
+            taskDiv.classList.add("overdue");
         }
         })
         // count
