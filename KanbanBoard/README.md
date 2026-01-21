@@ -226,11 +226,12 @@ No libraries or frameworks used.
 - Column highlights on drag-over
 - State updates on drop
 
-### 🗑️ Delete Task
+### 🗑️ Delete Task and Undo as well
 
 - Removes task from DOM
 - Updates count & empty state
 - Syncs changes to `localStorage`
+- A timer for 2s to undo deletion
 
 ### 💾 Persistence
 
