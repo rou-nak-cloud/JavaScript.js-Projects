@@ -16,11 +16,19 @@ const saveEditBtn = document.getElementById("saveEditBtn");
 const cancelEditBtn = document.getElementById("cancelEditBtn");
 const editModalBg = editModal.querySelector(".bg");
 
+const undoOverlay = document.getElementById("undoOverlay");
+const undoBar = document.getElementById("undoBar");
+const undoBtn = document.getElementById("undoBtn");
+
 
 
 let tasksData = {}; 
 let draggedIem = null;
 let currentEditTask = null;
+
+let lastDeletedTask = null;
+let undoTimer = null;
+
 
 function getCreatedDate() {
   return new Date().toISOString(); // sortable
@@ -56,6 +64,57 @@ function isOverdue(dueDate) {
 
   return due < today;
 }
+// undo fnc
+function showUndoBar() {
+  // Clear any previous timer
+  clearTimeout(undoTimer);
+
+  // Show overlay
+  undoOverlay.style.display = "flex";
+  undoBar.style.display = "flex";
+
+  // Auto-hide after 5s
+  undoTimer = setTimeout(() => {
+    hideUndoUi();
+  }, 2000);
+}
+function hideUndoUi(){
+    clearTimeout(undoTimer);
+    lastDeletedTask = null;
+    undoOverlay.style.display = "none";
+    undoBar.style.display = "none";
+}
+
+undoBtn.addEventListener("click", () => {
+  if (!lastDeletedTask) return;
+   // STOP the auto-hide timer immediately
+   clearTimeout(undoTimer);
+
+  const column = document.getElementById(lastDeletedTask.columnId);
+
+  const taskDiv = addTask(
+    lastDeletedTask.title,
+    lastDeletedTask.description,
+    column,
+    lastDeletedTask.createdAt,
+    lastDeletedTask.dueDate,
+    lastDeletedTask.completed
+  );
+
+  if (lastDeletedTask.completed) {
+    taskDiv.classList.add("completed");
+    taskDiv.classList.remove("overdue");
+
+    const doneBtn = taskDiv.querySelector(".done-btn");
+    doneBtn.style.display = "block";
+    doneBtn.innerText = "Completed";
+  }
+
+  updateCountTask();
+
+  hideUndoUi();
+});
+
 
 
 function addTask(title,desc,column,createdAt = getCreatedDate(),dueDate="", completed=false){
@@ -113,8 +172,23 @@ function addTask(title,desc,column,createdAt = getCreatedDate(),dueDate="", comp
         // Delete Logic
         const deleteBtn = div.querySelector('.delete-btn');
         deleteBtn.addEventListener('click', () => {
+            const columnId = column.id;
+
+            lastDeletedTask = {
+                title: div.querySelector("h2").innerText,
+                description: div.querySelector("p").innerText,
+                createdAt: div.dataset.createdAt,
+                dueDate: div.querySelector(".task-due")
+                ?.innerText.replace("⏰ Due: ", "")
+                .trim(),
+                completed: div.classList.contains("completed"),
+                columnId
+            };
+
             div.remove();
             updateCountTask();
+            // undo fnc
+            showUndoBar();
             updateEmptyState(column); // Update empty state for the column where the task was deleted
         });
 

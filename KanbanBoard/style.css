@@ -404,3 +404,47 @@ textarea {
     "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
     Arial, sans-serif;
 }
+
+/* undo bar */
+/* Undo overlay (blur background) */
+.undo-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Undo box */
+.undo-bar {
+  background: #1f1f1f;
+  color: #fff;
+  padding: 18px 24px;
+  border-radius: 10px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  font-family: cursive;
+}
+
+/* Undo button */
+.undo-bar button {
+  background: #4caf50;
+  border: none;
+  padding: 8px 14px;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.undo-bar button:hover {
+  background: #43a047;
+  transform: scale(0.95);
+}
