@@ -76,7 +76,7 @@ function showUndoBar() {
   // Auto-hide after 5s
   undoTimer = setTimeout(() => {
     hideUndoUi();
-  }, 2000);
+  }, 5000);
 }
 function hideUndoUi(){
     clearTimeout(undoTimer);
