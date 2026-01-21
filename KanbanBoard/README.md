@@ -256,7 +256,7 @@ No libraries or frameworks used.
 
 ---
 
-### 📌 Current Features Summary (v3)
+### 📌 Current Features Summary (v3.2)
 
 - Create tasks with title, description & due date
 - Drag & drop between columns
@@ -265,6 +265,7 @@ No libraries or frameworks used.
 - Delete tasks
 - Task count per column
 - Full LocalStorage persistence
+- Highlight Overdue tasks
 
 ---
 
