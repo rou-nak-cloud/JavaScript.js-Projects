@@ -153,6 +153,41 @@ Version 3 focuses on **editing, persistence, and UX improvements**, making the b
 
 ---
 
+## 🚀 Version v3.2 – Overdue Highlight
+
+### ✨ What’s New
+
+- Tasks with a **past due date** are automatically highlighted.
+- Helps quickly identify missed or urgent tasks.
+- Overdue styling is **disabled for completed tasks**.
+
+### 📷 Overdue Task Preview
+
+![Overdue Task Highlight](./assets/overdueKanban.png)
+
+### 🧠 How It Works
+
+- Compares task `dueDate` with today’s date.
+- If `dueDate < today` **and task is not completed**, an `overdue` class is applied.
+- Completed tasks remove overdue styling automatically.
+
+### 🎨 Visual Indicator
+
+- Overdue tasks are shown with a **red border** for instant visibility.
+- Completed tasks override overdue state.
+
+### 🛠️ Tech Used
+
+- Vanilla JavaScript (Date comparison)
+- CSS class-based highlighting
+- LocalStorage state persistence
+
+✔️ Improves task awareness  
+✔️ Keeps UI clean and intuitive  
+✔️ Fully backward-compatible with v3
+
+---
+
 ## 📁 Columns
 
 - **Todo**
