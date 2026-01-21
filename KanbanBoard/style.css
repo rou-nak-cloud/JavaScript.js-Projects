@@ -323,13 +323,13 @@ textarea {
 }
 
 .task-date {
-  font-size: 0.9rem;
-  color: #999;
+  font-size: 1rem;
+  color: #b3b3b3;
   display: block;
   margin: 4px 0 6px;
 }
 .task-due {
-  font-size: 1rem;
+  font-size: 0.9rem !important;
   font-size: 0.75rem;
   color: #cc4440;
   display: block;

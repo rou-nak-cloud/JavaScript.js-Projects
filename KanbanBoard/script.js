@@ -22,24 +22,42 @@ let tasksData = {};
 let draggedIem = null;
 let currentEditTask = null;
 
-function getFormattedDate() {
-  return new Date().toLocaleDateString("en-IN", {
+function getCreatedDate() {
+  return new Date().toISOString(); // sortable
+}
+
+function getFormattedDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString("en-IN", {
     day: "2-digit",
     month: "short",
     year: "numeric"
   });
 }
+function sortTasksByCreatedDate(column, newestFirst = true) {
+  const tasks = [...column.querySelectorAll(".task")];
 
-function addTask(title,desc,column,createdAt = getFormattedDate(),dueDate=""){
+  tasks.sort((a, b) => {
+    const dateA = new Date(a.dataset.createdAt);
+    const dateB = new Date(b.dataset.createdAt);
+
+    return newestFirst ? dateB - dateA : dateA - dateB;
+  });
+
+  tasks.forEach(task => column.appendChild(task));
+}
+
+function addTask(title,desc,column,createdAt = getCreatedDate(),dueDate="", completed=false){
     const div = document.createElement("div");
         div.classList.add("task");
         div.setAttribute("draggable", "true");
-        // console.log("Rendering due date:", dueDate);
+
+          // store raw date of element to localStorage
+         div.dataset.createdAt = createdAt;
 
         div.innerHTML = `
             <h2>${title}</h2>
             <p>${desc}</p>
-            <small class="task-date">📅 ${createdAt} created.</small>
+            <small class="task-date">📅 ${getFormattedDate(createdAt)} created.</small>
              <small class="task-due">⏰ Due: ${dueDate || "No due date"}</small>
              <div class="task-actions">
                 <button type="button" class="edit-btn">Edit</button>
@@ -134,9 +152,10 @@ function updateCountTask(){
                return{
                 title: t.querySelector('h2').innerText,
                 description: t.querySelector('p').innerText,
-                createdAt: t.querySelector('.task-date').innerText.replace("📅 ", "")
-                .replace(" created.", "")
-                .trim(),
+                createdAt: t.dataset.createdAt || 
+                    t.querySelector('.task-date').innerText.replace("📅 ", "")
+                    .replace(" created.", "")
+                    .trim(),
                 dueDate: t.querySelector('.task-due')
                 ? t.querySelector('.task-due').innerText.replace("⏰ Due: ", "").trim()
                 : "",
@@ -159,7 +178,8 @@ if(localStorage.getItem("AllTasks")){
             task.description,
             column,
             task.createdAt,
-            task.dueDate
+            task.dueDate,
+            task.completed
             );
 
         // restore completed state
@@ -175,6 +195,11 @@ if(localStorage.getItem("AllTasks")){
         const count = column.querySelector('.right')
         count.innerText = data[col].length;
     }
+
+    //  SORT AFTER RESTORE from localStorage
+    [todo, progress, done].forEach(col => {
+        sortTasksByCreatedDate(col, true);
+    });
 }
 
 tasks.forEach(task => {
@@ -241,6 +266,7 @@ function addDragLeaveEvent(column){
         })
          // to again store in the local storage for new place for the task
         updateCountTask();
+        sortTasksByCreatedDate(column, true);
         draggedIem = null;
     })
 }
@@ -271,6 +297,8 @@ addTaskBtn.addEventListener('click', ()=> {
     // to count tasks for each column and to store the task data also for every col id
     // update task count
     updateCountTask();
+      // sort after adding
+    sortTasksByCreatedDate(todo, true);
 
     // Clear inputs
     document.querySelector("#task-title").value = "";
